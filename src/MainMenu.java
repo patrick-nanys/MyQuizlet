@@ -2,16 +2,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
-import java.io.Serializable;
 import java.util.*;
 
-class MainMenu {
+class MainMenu extends BorderPane {
 
-    private BorderPane layout;
     private Button createFolder;
     private Button createSet;
     private TreeView<String> tree;
@@ -21,7 +18,6 @@ class MainMenu {
     private Button createNewElement;
 
     MainMenu(Controller controller) {
-        layout = new BorderPane();
         createButtons(controller);
 
         studySetBox = new StudySetBox();
@@ -30,7 +26,7 @@ class MainMenu {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(studySetBox);
         scrollPane.setFitToWidth(true);
-        layout.setCenter(scrollPane);
+        this.setCenter(scrollPane);
     }
 
     void setupLeftMenu() {
@@ -41,7 +37,7 @@ class MainMenu {
 
         leftMenu.getChildren().addAll(createFolder, createSet, new Separator(), tree, delete, study);
 
-        layout.setLeft(leftMenu);
+        this.setLeft(leftMenu);
     }
 
     private void addSetElement() {
@@ -72,10 +68,6 @@ class MainMenu {
         createNewElement.setOnAction(actionEvent -> addSetElement());
     }
 
-    BorderPane getLayout() {
-        return layout;
-    }
-
     void loadFolderTree(ArrayList<Pair<String, String>> treeHierarchy, Controller controller) {
 
         TreeItem<String> root = new TreeItem<>("root");
@@ -102,10 +94,6 @@ class MainMenu {
 
         tree = new TreeView<>(root);
         tree.setShowRoot(false);
-
-//        tree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            controller.differentTreeItemSelected(tree);
-//        });
 
         tree.getSelectionModel().selectedItemProperty().addListener(controller);
 

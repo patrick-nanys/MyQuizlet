@@ -4,12 +4,9 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
-import java.util.TreeMap;
-import java.util.Vector;
 
 public class View {
 
-    private Vector<SetElement> setElements;
     private Stage primaryStage;
     private MainMenu mainMenu;
 
@@ -25,14 +22,9 @@ public class View {
     }
 
     void showMainMenu() {
-        primaryStage.setScene(new Scene(mainMenu.getLayout(), 800, 520));
+        primaryStage.setScene(new Scene(mainMenu, 800, 520));
         primaryStage.show();
     }
-
-    /*
-    void updateHierarchyTree(TreeMap<String, String> treeHierarchy) {
-        mainMenu.updateDisplayedTree(treeHierarchy);
-    }*/
 
     void addItemToMainTree(String treeItemValue, String folderName) throws NullPointerException {
         mainMenu.addItemToTree(treeItemValue, folderName);

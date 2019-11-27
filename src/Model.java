@@ -53,7 +53,6 @@ public class Model {
         } else {
             AlertBox.display("Folder already exists!");
         }
-        //view.updateHierarchyTree(createHierarchyMap());
     }
 
     void createStudySetInFolder(String setName, String folderName) {
@@ -64,12 +63,10 @@ public class Model {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        //view.updateHierarchyTree(createHierarchyMap());
     }
 
     ArrayList<Pair<String, String>> getHierarchyList() {
         ArrayList<Pair<String, String>> hierarchy = new ArrayList<>();
-        //TreeMap<String, String> hierarchy = new TreeMap<>();
         for(String folderName : folders.keySet()) {
             for(String setName : folders.get(folderName).getSetNames())
                 hierarchy.add(new Pair<>(folderName, setName));

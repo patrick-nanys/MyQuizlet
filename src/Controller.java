@@ -6,10 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
 public class Controller implements EventHandler<ActionEvent>, ChangeListener<TreeItem<String>> {
     private Model model;
     private View view;
@@ -95,13 +91,11 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         displayedSet = null;
         if(selectedItem != null) {
             if (selectedItem.getParent() == tree.getRoot()) {
-                //deleteFile(selectedItem.getValue());
                 String folderName = selectedItem.getValue();
                 model.removeFolder(folderName);
             } else {
                 String folderName = selectedItem.getParent().getValue();
                 String fileName   = selectedItem.getValue();
-                //deleteFile(folderName + File.separator + fileName);
                 model.removeStudySet(fileName, folderName);
             }
         }

@@ -8,7 +8,6 @@ import javafx.scene.layout.VBox;
 public class SetElement extends HBox {
     private TextArea term;
     private TextArea definition;
-    //private HBox hBox;
 
     SetElement(TermAndDefinition tad, StudySetBox studySetBox) {
         Label l1 = new Label("Term");
@@ -19,8 +18,6 @@ public class SetElement extends HBox {
         definition.setPrefHeight(50);
         ElementDeleteButton delete = new ElementDeleteButton("X", this);
         delete.setOnAction(studySetBox);
-
-        //hBox = new HBox();
 
         VBox first = new VBox();
         VBox second = new VBox();
@@ -44,10 +41,4 @@ public class SetElement extends HBox {
     String getDefinition() {
         return definition.getText();
     }
-
-    /*
-    HBox getHBox() {
-        return hBox;
-    }
-    */
 }
