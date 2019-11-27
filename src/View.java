@@ -9,6 +9,7 @@ public class View {
 
     private Stage primaryStage;
     private MainMenu mainMenu;
+    private StudyFlashcard studyFlashcard;
 
     View(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -22,7 +23,7 @@ public class View {
     }
 
     void showMainMenu() {
-        primaryStage.setScene(new Scene(mainMenu, 800, 520));
+        primaryStage.setScene(mainMenu.createScene());
         primaryStage.show();
     }
 
@@ -44,5 +45,14 @@ public class View {
 
     TreeView<String> getFolderTree() {
         return mainMenu.getFolderTree();
+    }
+
+    void setupStudyFlashcard() {
+        studyFlashcard = new StudyFlashcard();
+    }
+
+    void showStudyFlashcard() {
+        primaryStage.setScene(studyFlashcard.createScene());
+        primaryStage.show();
     }
 }

@@ -1,5 +1,6 @@
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -7,8 +8,9 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-class MainMenu extends BorderPane {
+class MainMenu {
 
+    private BorderPane layout;
     private Button createFolder;
     private Button createSet;
     private TreeView<String> tree;
@@ -18,6 +20,7 @@ class MainMenu extends BorderPane {
     private Button createNewElement;
 
     MainMenu(Controller controller) {
+        layout = new BorderPane();
         createButtons(controller);
 
         studySetBox = new StudySetBox();
@@ -26,7 +29,7 @@ class MainMenu extends BorderPane {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(studySetBox);
         scrollPane.setFitToWidth(true);
-        this.setCenter(scrollPane);
+        layout.setCenter(scrollPane);
     }
 
     void setupLeftMenu() {
@@ -37,7 +40,11 @@ class MainMenu extends BorderPane {
 
         leftMenu.getChildren().addAll(createFolder, createSet, new Separator(), tree, delete, study);
 
-        this.setLeft(leftMenu);
+        layout.setLeft(leftMenu);
+    }
+
+    public Scene createScene() {
+        return new Scene(layout, 800, 520);
     }
 
     private void addSetElement() {
