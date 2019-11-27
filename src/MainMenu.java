@@ -1,8 +1,10 @@
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 
@@ -16,7 +18,9 @@ class MainMenu {
     private Button createSet;
     private TreeView<String> tree;
     private Button delete;
-    private Button study;
+    private Button flashcards;
+    private Button learn;
+    private Button test;
     private StudySetBox studySetBox;
     private Button createNewElement;
 
@@ -42,7 +46,13 @@ class MainMenu {
         leftMenu.setSpacing(5);
         leftMenu.setPadding(new Insets(10, 10, 10, 10));
 
-        leftMenu.getChildren().addAll(createFolder, createSet, new Separator(), tree, delete, study);
+        HBox studyButtons = new HBox();
+        studyButtons.setAlignment(Pos.CENTER);
+        studyButtons.setSpacing(10);
+        studyButtons.setMaxWidth(Double.MAX_VALUE);
+        studyButtons.getChildren().addAll(flashcards, learn, test);
+
+        leftMenu.getChildren().addAll(createFolder, createSet, new Separator(), tree, delete, studyButtons);
 
         layout.setLeft(leftMenu);
     }
@@ -69,13 +79,27 @@ class MainMenu {
         delete.setId("delete-button");
         delete.setOnAction(controller);
 
-        study = new Button("Study");
-        study.setOnAction(controller);
+        flashcards = new Button("Flashcards");
+        flashcards.setOnAction(controller);
+
+        learn = new Button("Learn");
+        learn.setOnAction(controller);
+
+        test = new Button("Test");
+        test.setOnAction(controller);
 
         createFolder.setMaxWidth(Double.MAX_VALUE);
         createSet.setMaxWidth(Double.MAX_VALUE);
         delete.setMaxWidth(Double.MAX_VALUE);
-        study.setMaxWidth(Double.MAX_VALUE);
+
+        flashcards.setMaxWidth(Double.MAX_VALUE);
+        learn.setMaxWidth(Double.MAX_VALUE);
+        test.setMaxWidth(Double.MAX_VALUE);
+
+        int width = 76;
+        flashcards.setMinWidth(width);
+        learn.setMinWidth(width);
+        test.setMinWidth(width);
 
         createNewElement = new Button("Create new element");
         createNewElement.setOnAction(actionEvent -> addSetElement());

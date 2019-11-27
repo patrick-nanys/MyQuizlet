@@ -32,8 +32,14 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
             case "Delete":
                 deleteFromTree(view.getFolderTree());
                 break;
-            case "Study":
-                study(view.getFolderTree());
+            case "Flashcards":
+                studyFlashcards(view.getFolderTree());
+                break;
+            case "Learn":
+                studyLearn(view.getFolderTree());
+                break;
+            case "Test":
+                studyTest(view.getFolderTree());
                 break;
         }
     }
@@ -134,12 +140,21 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     }
 */
 
-    private void study(TreeView<String> tree) {
+    private void studyFlashcards(TreeView<String> tree) {
         if(displayedSet != null) {
+            saveDisplayedSet();
             view.loadStudyFlashcard(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
             view.showStudyFlashcard();
         } else {
             AlertBox.display("Select a set before trying to study!");
         }
+    }
+
+    private void studyLearn(TreeView<String> tree) {
+        saveDisplayedSet();
+    }
+
+    private void studyTest(TreeView<String> tree) {
+        saveDisplayedSet();
     }
 }

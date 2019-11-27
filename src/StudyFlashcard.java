@@ -167,6 +167,7 @@ class StudyFlashcard {
         pane.setOnMouseClicked(e -> flip());
 
         text = new Label();
+        text.setWrapText(true);
 
         pane.getChildren().add(text);
 
