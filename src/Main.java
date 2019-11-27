@@ -12,10 +12,13 @@ public class Main extends Application {
 
         Controller controller = new Controller(model, view);
 
-        //view.setupMainMenu(controller, model.getHierarchyList());
-        //view.showMainMenu();
+        view.setupMainMenu(controller, model.getHierarchyList());
         view.setupStudyFlashcard();
-        view.showStudyFlashcard();
+
+        view.showMainMenu();
+        //view.showStudyFlashcard();
+
+        view.showView();
 
         primaryStage.setOnCloseRequest(actionEvent -> {
             controller.saveDisplayedSet();

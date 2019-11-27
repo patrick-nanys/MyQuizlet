@@ -1,11 +1,10 @@
-import javafx.scene.Scene;
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 
-public class View {
+class View {
 
     private Stage primaryStage;
     private MainMenu mainMenu;
@@ -16,6 +15,10 @@ public class View {
         this.primaryStage.setTitle("MyQuizlet");
     }
 
+    void showView() {
+        primaryStage.show();
+    }
+
     void setupMainMenu(Controller controller, ArrayList<Pair<String, String>> hierarchyMap) {
         mainMenu = new MainMenu(controller);
         mainMenu.loadFolderTree(hierarchyMap, controller);
@@ -23,8 +26,7 @@ public class View {
     }
 
     void showMainMenu() {
-        primaryStage.setScene(mainMenu.createScene());
-        primaryStage.show();
+        primaryStage.setScene(mainMenu.getScene());
     }
 
     void addItemToMainTree(String treeItemValue, String folderName) throws NullPointerException {
@@ -48,11 +50,18 @@ public class View {
     }
 
     void setupStudyFlashcard() {
-        studyFlashcard = new StudyFlashcard();
+        studyFlashcard = new StudyFlashcard(this);
+    }
+
+    void loadStudyFlashcard(StudySet studySet) {
+        studyFlashcard.loadStudySet(studySet);
     }
 
     void showStudyFlashcard() {
-        primaryStage.setScene(studyFlashcard.createScene());
-        primaryStage.show();
+        primaryStage.setScene(studyFlashcard.getScene());
+    }
+
+    void endStudyFlashcard() {
+        showMainMenu();
     }
 }

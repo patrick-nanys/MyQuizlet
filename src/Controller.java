@@ -29,8 +29,11 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
                 PopUpBox.display("Create set");
                 createStudySet(view.getFolderTree());
                 break;
-            case "delete":
+            case "Delete":
                 deleteFromTree(view.getFolderTree());
+                break;
+            case "Study":
+                study(view.getFolderTree());
                 break;
         }
     }
@@ -130,4 +133,13 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 */
+
+    private void study(TreeView<String> tree) {
+        if(displayedSet != null) {
+            view.loadStudyFlashcard(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
+            view.showStudyFlashcard();
+        } else {
+            AlertBox.display("Select a set before trying to study!");
+        }
+    }
 }

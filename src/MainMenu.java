@@ -10,6 +10,7 @@ import java.util.*;
 
 class MainMenu {
 
+    private Scene scene;
     private BorderPane layout;
     private Button createFolder;
     private Button createSet;
@@ -30,6 +31,9 @@ class MainMenu {
         scrollPane.setContent(studySetBox);
         scrollPane.setFitToWidth(true);
         layout.setCenter(scrollPane);
+
+        scene = new Scene(layout, 800, 520);
+        scene.getStylesheets().add("MainMenuStyles.css");
     }
 
     void setupLeftMenu() {
@@ -43,8 +47,8 @@ class MainMenu {
         layout.setLeft(leftMenu);
     }
 
-    public Scene createScene() {
-        return new Scene(layout, 800, 520);
+    Scene getScene() {
+        return scene;
     }
 
     private void addSetElement() {
@@ -62,9 +66,11 @@ class MainMenu {
         createSet.setOnAction(controller);
 
         delete = new Button("Delete");
+        delete.setId("delete-button");
         delete.setOnAction(controller);
 
         study = new Button("Study");
+        study.setOnAction(controller);
 
         createFolder.setMaxWidth(Double.MAX_VALUE);
         createSet.setMaxWidth(Double.MAX_VALUE);
