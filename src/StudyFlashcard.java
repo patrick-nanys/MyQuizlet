@@ -103,7 +103,7 @@ class StudyFlashcard {
             termsAndDefinitions.add(current);
         } else if(familiar.size() != 0) {
             familiar.remove(0);
-            termsAndDefinitions.add(current);
+            familiar.add(current);
         }
         setNext();
     }
