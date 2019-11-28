@@ -14,6 +14,7 @@ public class AlertBox {
         window.setTitle("Alert!");
 
         Label label = new Label(title);
+        label.setWrapText(true);
 
         VBox layout = new VBox();
         layout.setAlignment(Pos.CENTER);

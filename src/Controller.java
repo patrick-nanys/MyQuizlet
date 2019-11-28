@@ -143,15 +143,19 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     private void studyFlashcards(TreeView<String> tree) {
         if(displayedSet != null) {
             saveDisplayedSet();
-            view.loadStudyFlashcard(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
-            view.showStudyFlashcard();
+            view.showStudyFlashcard(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
         } else {
             AlertBox.display("Select a set before trying to study!");
         }
     }
 
     private void studyLearn(TreeView<String> tree) {
-        saveDisplayedSet();
+        if(displayedSet != null) {
+            saveDisplayedSet();
+            view.showStudyLearn(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
+        } else {
+            AlertBox.display("Select a set before trying to study!");
+        }
     }
 
     private void studyTest(TreeView<String> tree) {

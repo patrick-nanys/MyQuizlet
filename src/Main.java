@@ -13,7 +13,8 @@ public class Main extends Application {
         Controller controller = new Controller(model, view);
 
         view.setupMainMenu(controller, model.getHierarchyList());
-        view.setupStudyFlashcard();
+        view.setupStudySections();
+
 
         view.showMainMenu();
         //view.showStudyFlashcard();

@@ -1,1 +1,2 @@
-Create study scenes
+Should only be able to start "Learn" when we have at least 4 TermAndCondition-s (controller could check it in model)
+Create last study scene

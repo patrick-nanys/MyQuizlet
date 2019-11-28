@@ -193,6 +193,9 @@ class MainMenu {
             SetElement element = (SetElement) node;
             tads.add(new TermAndDefinition(element.getTerm(), element.getDefinition()));
         }
+
+        studySetBox.getChildren().add(createNewElement);
+
         return tads;
     }
 
