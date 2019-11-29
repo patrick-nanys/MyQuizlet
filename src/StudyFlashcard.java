@@ -48,7 +48,7 @@ class StudyFlashcard extends SimpleStudy {
 
         pane.getChildren().add(dunno);
 
-        layout.setLeft(pane);
+        setLayoutLeft(pane);
     }
 
     private void setupCenter() {
@@ -62,7 +62,7 @@ class StudyFlashcard extends SimpleStudy {
 
         pane.getChildren().add(termLabel);
 
-        layout.setCenter(pane);
+        setLayoutCenter(pane);
     }
 
     private void setupRight() {
@@ -75,6 +75,6 @@ class StudyFlashcard extends SimpleStudy {
 
         pane.getChildren().add(gotIt);
 
-        layout.setRight(pane);
+        setLayoutRight(pane);
     }
 }

@@ -152,7 +152,11 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     private void studyLearn(TreeView<String> tree) {
         if(displayedSet != null) {
             saveDisplayedSet();
-            view.showStudyLearn(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
+            if(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()).getTermsAndDefinitions().size() >= 4) {
+                view.showStudyLearn(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
+            } else {
+                AlertBox.display("You need to have atleast four terms and definitions to study this way!");
+            }
         } else {
             AlertBox.display("Select a set before trying to study!");
         }

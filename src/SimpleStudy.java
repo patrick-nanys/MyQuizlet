@@ -1,5 +1,6 @@
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,7 +15,7 @@ abstract class SimpleStudy {
     private View view;
 
     private Scene scene;
-    BorderPane layout;
+    private BorderPane layout;
     private ArrayList<TermAndDefinition> remaining;
     private ArrayList<TermAndDefinition> familiars;
     private TermAndDefinition current;
@@ -34,13 +35,14 @@ abstract class SimpleStudy {
         scene = new Scene(layout, 800, 520);
     }
 
-    Scene getScene() {
-        return scene;
-    }
-
+    Scene getScene() { return scene; }
     ArrayList<TermAndDefinition> getRemaining() { return remaining; }
     ArrayList<TermAndDefinition> getFamiliars() { return familiars; }
     TermAndDefinition getCurrent() { return current; }
+
+    void setLayoutLeft(Node node) { layout.setLeft(node); }
+    void setLayoutRight(Node node) { layout.setRight(node); }
+    void setLayoutCenter(Node node) { layout.setCenter(node); }
 
     void loadStudySet(StudySet studySet) {
         remaining = studySet.getTermsAndDefinitions();

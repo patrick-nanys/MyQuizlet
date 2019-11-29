@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class StudyLearn extends SimpleStudy {
+class StudyLearn extends SimpleStudy {
 
     private VBox radioMain;
     private Label termLabel;
@@ -129,13 +129,8 @@ public class StudyLearn extends SimpleStudy {
         writingMain.getChildren().addAll(definitionLabel, answer, validate);
     }
 
-    private void displayRadioTest() {
-        layout.setCenter(radioMain);
-    }
-
-    private void displayWritingTest() {
-        layout.setCenter(writingMain);
-    }
+    private void displayRadioTest() { setLayoutCenter(radioMain); }
+    private void displayWritingTest() { setLayoutCenter(writingMain); }
 
     private void validateRadioAnswer() {
         if(radioButtons[correctIndex].isSelected()) {

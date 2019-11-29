@@ -36,7 +36,7 @@ class MainMenu {
         scrollPane.setFitToWidth(true);
         layout.setCenter(scrollPane);
 
-        scene = new Scene(layout, 800, 520);
+        scene = new Scene(layout, 1000, 520);
         scene.getStylesheets().add("MainMenuStyles.css");
     }
 
