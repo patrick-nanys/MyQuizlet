@@ -1,21 +1,13 @@
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-abstract class SimpleStudy {
-    private View view;
+abstract class SimpleStudy extends Study {
 
-    private Scene scene;
-    private BorderPane layout;
     private ArrayList<TermAndDefinition> remaining;
     private ArrayList<TermAndDefinition> familiars;
     private TermAndDefinition current;
@@ -25,24 +17,15 @@ abstract class SimpleStudy {
     private Label masteredNum;
 
     SimpleStudy(View view) {
-        this.view = view;
-        layout = new BorderPane();
+        super(view);
         familiars = new ArrayList<>();
 
         setupTop();
-        setupBottom();
-
-        scene = new Scene(layout, 800, 520);
     }
 
-    Scene getScene() { return scene; }
     ArrayList<TermAndDefinition> getRemaining() { return remaining; }
     ArrayList<TermAndDefinition> getFamiliars() { return familiars; }
     TermAndDefinition getCurrent() { return current; }
-
-    void setLayoutLeft(Node node) { layout.setLeft(node); }
-    void setLayoutRight(Node node) { layout.setRight(node); }
-    void setLayoutCenter(Node node) { layout.setCenter(node); }
 
     void loadStudySet(StudySet studySet) {
         remaining = studySet.getTermsAndDefinitions();
@@ -129,20 +112,6 @@ abstract class SimpleStudy {
 
         topLabels.getChildren().addAll(remainingBox, familiarBox, masteredBox);
 
-        layout.setTop(topLabels);
-    }
-
-    private void setupBottom() {
-        StackPane pane = new StackPane();
-        pane.setAlignment(Pos.CENTER);
-        pane.setPadding(new Insets(30, 30, 30, 30));
-
-        Button exit = new Button("I'm out");
-        exit.setId("button-exit");
-        exit.setOnAction(actionEvent -> view.endStudy());
-
-        pane.getChildren().add(exit);
-
-        layout.setBottom(pane);
+        setLayoutTop(topLabels);
     }
 }

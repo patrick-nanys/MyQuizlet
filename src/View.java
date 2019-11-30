@@ -10,6 +10,7 @@ class View {
     private MainMenu mainMenu;
     private StudyFlashcard studyFlashcard;
     private StudyLearn studyLearn;
+    private StudyTest studyTest;
 
     View(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -50,12 +51,10 @@ class View {
         return mainMenu.getFolderTree();
     }
 
-
-
-
     void setupStudySections() {
         studyFlashcard = new StudyFlashcard(this);
         studyLearn = new StudyLearn(this);
+        studyTest = new StudyTest(this);
     }
 
     void showStudyFlashcard(StudySet studySet) {
@@ -68,7 +67,10 @@ class View {
         primaryStage.setScene(studyLearn.getScene());
     }
 
-    void endStudy() {
-        showMainMenu();
+    void showStudyTest(StudySet studySet) {
+        studyTest.loadStudySet(studySet);
+        primaryStage.setScene(studyTest.getScene());
     }
+
+    void endStudy() { showMainMenu(); }
 }

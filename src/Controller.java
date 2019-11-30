@@ -155,7 +155,7 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
             if(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()).getTermsAndDefinitions().size() >= 4) {
                 view.showStudyLearn(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
             } else {
-                AlertBox.display("You need to have atleast four terms and definitions to study this way!");
+                AlertBox.display("You need to have at least four terms and definitions to study this way!");
             }
         } else {
             AlertBox.display("Select a set before trying to study!");
@@ -163,6 +163,15 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     }
 
     private void studyTest(TreeView<String> tree) {
-        saveDisplayedSet();
+        if(displayedSet != null) {
+            saveDisplayedSet();
+            if(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()).getTermsAndDefinitions().size() >= 15) {
+                view.showStudyTest(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
+            } else {
+                AlertBox.display("You need to have at least fifteen terms and definitions to study this way!");
+            }
+        } else {
+            AlertBox.display("Select a set before trying to study!");
+        }
     }
 }
