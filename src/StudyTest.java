@@ -15,6 +15,9 @@ class StudyTest extends Study {
     private ArrayList<TermAndDefinition> secondTaskTermAndDefinitions;
     private ArrayList<TermAndDefinition> thirdTaskTermAndDefinitions;
 
+    private ArrayList<TermAndDefinition> secondTaskShuffled;
+    private ArrayList<TermAndDefinition> thirdTaskShuffled;
+
     private VBox mainBox;
     private TextField[] termFields;
     private TextField[] characterFields;
@@ -27,6 +30,9 @@ class StudyTest extends Study {
         firstTaskTermAndDefinitions = new ArrayList<>();
         secondTaskTermAndDefinitions = new ArrayList<>();
         thirdTaskTermAndDefinitions = new ArrayList<>();
+
+        secondTaskShuffled = new ArrayList<>();
+        thirdTaskShuffled = new ArrayList<>(thirdTaskTermAndDefinitions);
     }
 
     void loadStudySet(StudySet studySet) {
@@ -39,6 +45,11 @@ class StudyTest extends Study {
         }
 
         setupCenter();
+
+        Button validate = new Button("Validate");
+        validate.setOnAction(actionEvent -> validateAnswers());
+
+        mainBox.getChildren().addAll(validate, new Separator());
     }
 
     private void setupCenter() {
@@ -113,11 +124,14 @@ class StudyTest extends Study {
         Label[] definitionCharacters = new Label[5];
         Label[] definitionLabels = new Label[5];
 
+        secondTaskShuffled.addAll(secondTaskTermAndDefinitions);
+        Collections.shuffle(secondTaskShuffled);
+
         for (int i = 0; i < 5; i++) {
             termBoxes[i] = new HBox();
             termNum[i] = new Label(String.valueOf(i+1));
             characterFields[i] = new TextField();
-            termLabels[i] = new Label(secondTaskTermAndDefinitions.get(1).term);
+            termLabels[i] = new Label(secondTaskTermAndDefinitions.get(i).term);
 
             termBoxes[i].setPadding(new Insets(10, 10, 10, 10));
             termBoxes[i].setSpacing(10);
@@ -128,7 +142,7 @@ class StudyTest extends Study {
 
             definitionBoxes[i] = new HBox();
             definitionCharacters[i] = new Label(String.valueOf((char)('A' + i)));
-            definitionLabels[i] = new Label(secondTaskTermAndDefinitions.get(i).definition);
+            definitionLabels[i] = new Label(secondTaskShuffled.get(i).definition);
 
             definitionBoxes[i].setPadding(new Insets(10, 10, 10, 10));
             definitionBoxes[i].setSpacing(10);
@@ -159,11 +173,14 @@ class StudyTest extends Study {
         falseRadioButtons = new RadioButton[5];
         Label[] falses = new Label[5];
 
+        thirdTaskShuffled.addAll(thirdTaskTermAndDefinitions);
+        Collections.shuffle(thirdTaskShuffled);
+
         for (int i = 0; i < 5; i++) {
             grids[i] = new GridPane();
             taskNums[i] = new Label(String.valueOf(i+1));
             terms[i] = new Label(thirdTaskTermAndDefinitions.get(i).term + ":");
-            definitions[i] = new Label(thirdTaskTermAndDefinitions.get(i).definition);
+            definitions[i] = new Label(thirdTaskShuffled.get(i).definition);
             choices[i] = new VBox();
             choice[i] = new HBox();
             choice[i+5] = new HBox();
@@ -192,5 +209,33 @@ class StudyTest extends Study {
         }
 
         mainBox.getChildren().add(thirdTask);
+    }
+
+    private void validateAnswers() {
+        int sumOfPoints = 0;
+        for (int i = 0; i < 5; i++) {
+            // validate first task
+            if(termFields[i].getText().equals(firstTaskTermAndDefinitions.get(i).term))
+                sumOfPoints++;
+
+            // validate second task
+            int indexOfDefinition;
+            if(characterFields[i].getText().equals(""))
+                indexOfDefinition = 0;
+            else
+                indexOfDefinition = characterFields[i].getText().charAt(0) - 'A';
+            if(secondTaskTermAndDefinitions.get(i).term.equals(secondTaskShuffled.get(indexOfDefinition).term))
+                sumOfPoints++;
+
+            // validate third task
+            if(thirdTaskTermAndDefinitions.get(i).term.equals(thirdTaskShuffled.get(i).term)) {
+                if(trueRadioButtons[i].isSelected())
+                    sumOfPoints++;
+            } else {
+                if(falseRadioButtons[i].isSelected())
+                    sumOfPoints++;
+            }
+        }
+        AlertBox.display("You've got " + sumOfPoints + "/15 points.");
     }
 }

@@ -1,1 +1,1 @@
-Create last study scene
+Create JUnit tests
