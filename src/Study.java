@@ -13,7 +13,7 @@ abstract class Study {
     private BorderPane layout;
 
     /**
-     * Beallitja a nezetet a kommunikaviohoz és beallitja az also menu savot.
+     * Beallitja a nezetet a kommunikaciohoz és beallitja az also menu savot.
      * @param view nezet
      */
     Study(View view) {
