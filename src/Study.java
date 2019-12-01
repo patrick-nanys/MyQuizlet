@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-abstract class Study {
+class Study {
     private View view;
 
     private Scene scene;

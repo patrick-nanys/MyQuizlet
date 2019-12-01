@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import java.util.ArrayList;
 import java.util.Collections;
 
-abstract class SimpleStudy extends Study {
+class SimpleStudy extends Study {
 
     private ArrayList<TermAndDefinition> remaining;
     private ArrayList<TermAndDefinition> familiars;

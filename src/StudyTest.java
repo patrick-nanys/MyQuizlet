@@ -232,7 +232,7 @@ class StudyTest extends Study {
     }
 
     /**
-     * Lepontozza a harom feladatot és egy kulon ablakban kijelzi az eredmenyt.
+     * Lepontozza a harom feladatot es egy kulon ablakban kijelzi az eredmenyt.
      */
     private void validateAnswers() {
         int sumOfPoints = 0;
