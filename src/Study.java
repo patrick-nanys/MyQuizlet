@@ -12,6 +12,10 @@ abstract class Study {
     private Scene scene;
     private BorderPane layout;
 
+    /**
+     * Beallitja a nezetet a kommunikaviohoz és beallitja az also menu savot.
+     * @param view nezet
+     */
     Study(View view) {
         this.view = view;
         layout = new BorderPane();
@@ -21,13 +25,39 @@ abstract class Study {
         scene = new Scene(layout, 800, 520);
     }
 
+    /**
+     * Getter a scene-re
+     * @return scene
+     */
     Scene getScene() { return scene; }
 
+    /**
+     * Setter az ablak felso reszere.
+     * @param node elrendezes
+     */
     void setLayoutTop(Node node) { layout.setTop(node); }
+
+    /**
+     * Setter az ablak bal reszere.
+     * @param node elrendezes
+     */
     void setLayoutLeft(Node node) { layout.setLeft(node); }
+
+    /**
+     * Setter az ablak jobb reszere.
+     * @param node elrendezes
+     */
     void setLayoutRight(Node node) { layout.setRight(node); }
+
+    /**
+     * Setter az ablak kozepso reszere.
+     * @param node elrendezes
+     */
     void setLayoutCenter(Node node) { layout.setCenter(node); }
 
+    /**
+     * Beallitja az ablak also reszet.
+     */
     private void setupBottom() {
         StackPane pane = new StackPane();
         pane.setAlignment(Pos.CENTER);

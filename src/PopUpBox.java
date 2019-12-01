@@ -7,10 +7,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PopUpBox {
+class PopUpBox {
     private static String enteredText;
     private static boolean pressedOk;
 
+    /**
+     * Megjelenit egy felugro ablakot a megadott szoveggel és egy bemeneti mezovel.
+     * @param title megjelenitett szoveg
+     */
     static void display(String title) {
 
         pressedOk = false;
@@ -38,10 +42,18 @@ public class PopUpBox {
 
     }
 
+    /**
+     * Getter a beirt szovegre.
+     * @return beirt szoveg
+     */
     static String getEnteredText() {
         return enteredText;
     }
 
+    /**
+     * Visszater, hogy meg lett-e nyomva az ok gomb.
+     * @return meg lett-e nyomva
+     */
     static boolean didPressOk() {
         return pressedOk;
     }

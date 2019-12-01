@@ -12,11 +12,20 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
 
     private TreeItem<String> displayedSet = null;
 
+    /**
+     * Beallitja a modell es a nezet referenciakat a kesobbi kommunikaciohoz az osztalyok kozoott.
+     * @param model modell
+     * @param view nezet
+     */
     Controller(Model model, View view) {
         this.model = model;
         this.view = view;
     }
 
+    /**
+     * Kezeli az egyes gombnyomasokat.
+     * @param actionEvent esemeny
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         String name = ((Button) actionEvent.getSource()).getText();
@@ -44,11 +53,20 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     * Kezeli az egyes valtozasokat amik a kijelzett mappa fan tortennek.
+     * @param observableValue megfigyelheto ertek
+     * @param old_val regi ertek
+     * @param new_val uj ertek
+     */
     @Override
     public void changed(ObservableValue<? extends TreeItem<String>> observableValue, TreeItem<String> old_val, TreeItem<String> new_val) {
         differentTreeItemSelected(view.getFolderTree());
     }
 
+    /**
+     * Az aktualisan kijelzett szettet elmenti a modellben.
+     */
     void saveDisplayedSet() {
         if (displayedSet != null) {
             String setName = displayedSet.getValue();
@@ -57,6 +75,9 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     * Letrehoz egy uj mappat a modellben, ami aztan frissiti a kijelzett fat is.
+     */
     private void createFolder() {
         if(PopUpBox.didPressOk()) {
             String folderName = PopUpBox.getEnteredText();
@@ -72,6 +93,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     * Letrehoz egy uj szettet a modellben, ami aztan frissiti a kijelzett fat is.
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     */
     private void createStudySet(TreeView<String> tree) {
         if(PopUpBox.didPressOk()) {
             TreeItem<String> selectedItem = tree.getSelectionModel().getSelectedItem();
@@ -95,6 +120,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     *
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     */
     private void deleteFromTree(TreeView<String> tree) {
         TreeItem<String> selectedItem = tree.getSelectionModel().getSelectedItem();
         displayedSet = null;
@@ -110,6 +139,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     *
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     */
     private void differentTreeItemSelected(TreeView<String> tree) {
         TreeItem<String> selectedItem = tree.getSelectionModel().getSelectedItem();
         if(!isFolder(selectedItem, tree)) {
@@ -122,6 +155,12 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     * Visszater azzal, hogy igaz-e, hogy a megadott elem egy mappa.
+     * @param item a kerdeses elem
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     * @return igaz-e, hogy mappa a fenti elem
+     */
     private boolean isFolder(TreeItem<String> item, TreeView<String> tree) {
         return item.getParent() == tree.getRoot();
     }
@@ -140,6 +179,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     }
 */
 
+    /**
+     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a StudyFlashcard reszt.
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     */
     private void studyFlashcards(TreeView<String> tree) {
         if(displayedSet != null) {
             saveDisplayedSet();
@@ -149,6 +192,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a StudyLearn reszt.
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     */
     private void studyLearn(TreeView<String> tree) {
         if(displayedSet != null) {
             saveDisplayedSet();
@@ -162,6 +209,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         }
     }
 
+    /**
+     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a StudyTest reszt.
+     * @param tree kijelzett fa struktura a mappakrol es szettekrol
+     */
     private void studyTest(TreeView<String> tree) {
         if(displayedSet != null) {
             saveDisplayedSet();

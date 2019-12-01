@@ -3,6 +3,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    /**
+     * Beallitja a Controller, Model, View harmast.
+     * @param primaryStage szinter
+     * @throws Exception kivetel (Sosem dob kivetelt, de benne hagyjuk, a szokas kedveert)
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         View view = new View(primaryStage);
@@ -15,10 +20,7 @@ public class Main extends Application {
         view.setupMainMenu(controller, model.getHierarchyList());
         view.setupStudySections();
 
-
         view.showMainMenu();
-        //view.showStudyFlashcard();
-
         view.showView();
 
         primaryStage.setOnCloseRequest(actionEvent -> {
@@ -28,6 +30,10 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Main fuggveny. Inicializalja a futtatasi kornyezetet.
+     * @param args futtatasi argumentumok
+     */
     public static void main(String[] args) {
         launch(args);
     }

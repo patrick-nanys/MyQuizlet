@@ -24,6 +24,10 @@ class StudyTest extends Study {
     private RadioButton[] trueRadioButtons;
     private RadioButton[] falseRadioButtons;
 
+    /**
+     * Beallitja az ost a megadott nezettel es beallitja a osztaly valtozoit.
+     * @param view nezet
+     */
     StudyTest(View view) {
         super(view);
 
@@ -35,6 +39,10 @@ class StudyTest extends Study {
         thirdTaskShuffled = new ArrayList<>(thirdTaskTermAndDefinitions);
     }
 
+    /**
+     * Beolti a megadott szettet es beallitja az egyes feladatot listait.
+     * @param studySet szett
+     */
     void loadStudySet(StudySet studySet) {
         ArrayList<TermAndDefinition> all = studySet.getTermsAndDefinitions();
         Collections.shuffle(all);
@@ -52,6 +60,9 @@ class StudyTest extends Study {
         mainBox.getChildren().addAll(validate, new Separator());
     }
 
+    /**
+     * Beallitja az ablak kozepso reszet.
+     */
     private void setupCenter() {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
@@ -70,6 +81,9 @@ class StudyTest extends Study {
         setLayoutCenter(scrollPane);
     }
 
+    /**
+     * Letrehozza az elso feladat kinezetet
+     */
     private void setupFirstTask() {
         VBox firstTask  = new VBox();
         firstTask.setAlignment(Pos.CENTER);
@@ -101,6 +115,9 @@ class StudyTest extends Study {
         mainBox.getChildren().add(firstTask);
     }
 
+    /**
+     * Letrehozza a masodik feladat kinezetet
+     */
     private void setupSecondTask() {
         HBox secondTask = new HBox();
         secondTask.setAlignment(Pos.CENTER);
@@ -155,6 +172,9 @@ class StudyTest extends Study {
         mainBox.getChildren().add(secondTask);
     }
 
+    /**
+     * Letrehozza a harmadik feladat kinezetet.
+     */
     private void setupThirdTask() {
         VBox thirdTask  = new VBox();
         thirdTask.setAlignment(Pos.CENTER);
@@ -211,6 +231,9 @@ class StudyTest extends Study {
         mainBox.getChildren().add(thirdTask);
     }
 
+    /**
+     * Lepontozza a harom feladatot és egy kulon ablakban kijelzi az eredmenyt.
+     */
     private void validateAnswers() {
         int sumOfPoints = 0;
         for (int i = 0; i < 5; i++) {

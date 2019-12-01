@@ -9,6 +9,10 @@ class StudyFlashcard extends SimpleStudy {
     private Label termLabel;
     private boolean termActive;
 
+    /**
+     * Beallitja az ost a megadott nezettel és letrehozza az ablak bal, kozepso és jobb reszet.
+     * @param view nezet
+     */
     StudyFlashcard(View view) {
         super(view);
         termLabel = new Label();
@@ -17,10 +21,11 @@ class StudyFlashcard extends SimpleStudy {
         setupLeft();
         setupCenter();
         setupRight();
-
-        getScene().getStylesheets().add("StudyFlashcardStyles.css");
     }
 
+    /**
+     * Kifejezesrol definiciora, definiciorol kifejezesre allitja a kifelzett szoveget.
+     */
     private void flip() {
         if(termActive) {
             termLabel.setText(getCurrent().definition);
@@ -31,6 +36,9 @@ class StudyFlashcard extends SimpleStudy {
         }
     }
 
+    /**
+     * Beallitja a kovetkezo kifejezes-definicio part.
+     */
     @Override
     void setNext() {
         super.setNext();
@@ -38,6 +46,9 @@ class StudyFlashcard extends SimpleStudy {
         termActive = true;
     }
 
+    /**
+     * Beallitja az ablak bal reszet
+     */
     private void setupLeft() {
         StackPane pane = new StackPane();
         pane.setAlignment(Pos.CENTER);
@@ -51,9 +62,12 @@ class StudyFlashcard extends SimpleStudy {
         setLayoutLeft(pane);
     }
 
+    /**
+     * Beallitja az abalak kozepso reszet.
+     */
     private void setupCenter() {
         StackPane pane = new StackPane();
-        pane.setId("center-pane");
+        pane.setStyle("-fx-background-color: #FFFFFF;");
         pane.setMaxHeight(300);
         pane.setMaxWidth(300);
         pane.setAlignment(Pos.CENTER);
@@ -65,6 +79,9 @@ class StudyFlashcard extends SimpleStudy {
         setLayoutCenter(pane);
     }
 
+    /**
+     * Beallitja az ablak jobb reszet
+     */
     private void setupRight() {
         StackPane pane = new StackPane();
         pane.setAlignment(Pos.CENTER);

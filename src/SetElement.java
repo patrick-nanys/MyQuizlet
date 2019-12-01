@@ -5,10 +5,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class SetElement extends HBox {
+class SetElement extends HBox {
     private TextArea term;
     private TextArea definition;
 
+    /**
+     * Létrehoz egy szett elemet a megadott kifejezes-definicio parral a megadott kontenerben.
+     * @param tad kifejezes-definicio par
+     * @param studySetBox kontener
+     */
     SetElement(TermAndDefinition tad, StudySetBox studySetBox) {
         Label l1 = new Label("Term");
         Label l2 = new Label("Definition");
@@ -34,10 +39,18 @@ public class SetElement extends HBox {
         this.getChildren().addAll(first, second, third);
     }
 
+    /**
+     * Getter a kifejezesre.
+     * @return kifejezes
+     */
     String getTerm() {
         return term.getText();
     }
 
+    /**
+     * Getter a definiciora.
+     * @return definicio
+     */
     String getDefinition() {
         return definition.getText();
     }

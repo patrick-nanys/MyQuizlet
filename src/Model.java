@@ -4,15 +4,22 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class Model {
+class Model {
     private TreeMap<String, Folder> folders;
     private transient View view;
 
+    /**
+     * Beallitja az osztaly valtozoit es a nezet referenciat a kommunikaciohoz.
+     * @param view nezet
+     */
     Model(View view) {
         folders = new TreeMap<>();
         this.view = view;
     }
 
+    /**
+     * Fajlba menti a szetteket es a mappakat.
+     */
     void saveSets() {
         try {
             FileOutputStream f = new FileOutputStream("data");
@@ -24,6 +31,9 @@ public class Model {
         }
     }
 
+    /**
+     * Kiolvassa fajlbol az elmentett szettekeet es mappakat.
+     */
     void loadSavedSets() {
         File file = new File("data");
         if(file.exists()) {
@@ -38,6 +48,10 @@ public class Model {
         }
     }
 
+    /**
+     * Letrehoz egy magadott nevu mappat a strukturaban.
+     * @param folderName mappa neve
+     */
     void createFolder(String folderName) {
         if (nameDoesNotExist(folderName, "root")) {
             //File file = new File(FOLDER_DIR + File.separator + folderName);
@@ -55,6 +69,11 @@ public class Model {
         }
     }
 
+    /**
+     * Letrehoz egy megadott nevu szettet a megadott nevu mappaban.
+     * @param setName szett neve
+     * @param folderName mappa neve
+     */
     void createStudySetInFolder(String setName, String folderName) {
         folders.get(folderName).addStudySet(setName);
         try {
@@ -65,6 +84,10 @@ public class Model {
         }
     }
 
+    /**
+     * Letrehoz egy hierarchia listat a mappakbol es szettekbol.
+     * @return hiererhia lista
+     */
     ArrayList<Pair<String, String>> getHierarchyList() {
         ArrayList<Pair<String, String>> hierarchy = new ArrayList<>();
         for(String folderName : folders.keySet()) {
@@ -76,10 +99,20 @@ public class Model {
         return hierarchy;
     }
 
+    /**
+     * Visszater a megadott nevu szettel a megadott nevu mappabol.
+     * @param setName szett neve
+     * @param folderName mappa neve
+     * @return szett
+     */
     StudySet getStudySetFromFolder(String setName, String folderName) {
         return folders.get(folderName).getStudySet(setName);
     }
 
+    /**
+     * Eltavolitja a megadott nevu mappat es annak az osszes elemet a modelbol.
+     * @param folderName mappa neve
+     */
     void removeFolder(String folderName) {
         folders.remove(folderName);
         try {
@@ -89,6 +122,11 @@ public class Model {
         }
     }
 
+    /**
+     * Eltavolitja a megadott nevu szettet a megadott nevu mappabol a modelbol
+     * @param setName szett neve
+     * @param folderName mappa neve
+     */
     void removeStudySet(String setName, String folderName) {
         folders.get(folderName).removeStudySet(setName);
         try {
@@ -98,6 +136,12 @@ public class Model {
         }
     }
 
+    /**
+     * Megadja, hogy a megadott nevu elem letezik-e a megadott nevu mappaban.
+     * @param name elem neve
+     * @param folderName mappa neve
+     * @return letezik-e
+     */
     boolean nameDoesNotExist(String name, String folderName) {
         if(folderName.equals("root")) {
             return !folders.containsKey(name);
@@ -106,6 +150,11 @@ public class Model {
         }
     }
 
+    /**
+     * Elmenti a modellben az eppen kijelzett szettet a megadott nevvel a megadott mappaba.
+     * @param setName szett neve
+     * @param folderName mappa neve
+     */
     void saveDisplayedStudySet(String setName, String folderName) {
         ArrayList<TermAndDefinition> tads = view.getDisplayedStudySetData();
         StudySet studySet = new StudySet(setName);
@@ -114,6 +163,11 @@ public class Model {
         folders.get(folderName).setStudySet(setName, studySet);
     }
 
+    /**
+     * Betolti a nezetbe a megadott nevu szettet a megadott mappabol.
+     * @param setName szett neve
+     * @param folderName mappa neve
+     */
     void loadStudySet(String setName, String folderName) {
         StudySet studySet = folders.get(folderName).getStudySet(setName);
         view.loadStudySet(studySet);

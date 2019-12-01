@@ -24,6 +24,10 @@ class MainMenu {
     private StudySetBox studySetBox;
     private Button createNewElement;
 
+    /**
+     * Beallitja az osztaly valtozoit es a megadott kontroller referenciat elmenti a kommunikaciohoz.
+     * @param controller kontroller
+     */
     MainMenu(Controller controller) {
         layout = new BorderPane();
         createButtons(controller);
@@ -37,9 +41,11 @@ class MainMenu {
         layout.setCenter(scrollPane);
 
         scene = new Scene(layout, 1000, 520);
-        scene.getStylesheets().add("MainMenuStyles.css");
     }
 
+    /**
+     * Beallitja a bal oldali menut.
+     */
     void setupLeftMenu() {
 
         VBox leftMenu = new VBox();
@@ -57,10 +63,17 @@ class MainMenu {
         layout.setLeft(leftMenu);
     }
 
+    /**
+     * Getter a scene-re
+     * @return scene
+     */
     Scene getScene() {
         return scene;
     }
 
+    /**
+     * Hozzaad egy szett elemet az aktualisan kijelzett szetthez.
+     */
     private void addSetElement() {
         studySetBox.getChildren().remove(createNewElement);
         SetElement setElement = new SetElement(new TermAndDefinition("", ""), studySetBox);
@@ -68,6 +81,10 @@ class MainMenu {
         studySetBox.getChildren().add(createNewElement);
     }
 
+    /**
+     * Beallitja a gombok kinezetet es futtatott funkcioit.
+     * @param controller a kontroller ami kezeli a gombok funkcioit
+     */
     private void createButtons(Controller controller) {
         createFolder = new Button("Create folder");
         createFolder.setOnAction(controller);
@@ -105,6 +122,12 @@ class MainMenu {
         createNewElement.setOnAction(actionEvent -> addSetElement());
     }
 
+    /**
+     * A megadott fa hierarchiabol letrehozza a kijelzett mappa fa strukturat es a fahoz hozzaadja a megadott kontrollert
+     * mint figyelo.
+     * @param treeHierarchy fa struktura
+     * @param controller kontroller
+     */
     void loadFolderTree(ArrayList<Pair<String, String>> treeHierarchy, Controller controller) {
 
         TreeItem<String> root = new TreeItem<>("root");
@@ -136,6 +159,10 @@ class MainMenu {
 
     }
 
+    /**
+     * Betolti a megadott szettet a kepernyore.
+     * @param studySet szett
+     */
     void loadStudySet(StudySet studySet) {
 
         studySetBox.getChildren().clear();
@@ -148,6 +175,12 @@ class MainMenu {
         studySetBox.getChildren().add(createNewElement);
     }
 
+    /**
+     * Hozzaadja a megadott elemet a megadott mappaba a kijelzett fa mappa strukturaba.
+     * @param treeItemValue elem neve
+     * @param folderName mappa neve
+     * @throws NullPointerException ha egy szettet probalunk letrehozni ugy, hogy egyik elem sincsen kivalasztva
+     */
     void addItemToTree(String treeItemValue, String folderName) throws NullPointerException {
         if(folderName.equals("root")) {
             tree.getRoot().getChildren().add(new TreeItem<>(treeItemValue));
@@ -161,6 +194,12 @@ class MainMenu {
         }
     }
 
+    /**
+     * A megadott elemet a megadott mappabol eltavolitja a kifelzett fa mappa strukturabol.
+     * @param treeItemValue elem neve
+     * @param folderName mappa neve
+     * @throws NullPointerException ha egy szettet probalunk eltavolitani ugy, hogy egyik elem sincsen kivalasztva
+     */
     void removeItemFromTree(String treeItemValue, String folderName) throws NullPointerException {
         if(folderName.equals("root")) {
             TreeItem<String> item = getTreeItem(treeItemValue, tree.getRoot());
@@ -177,6 +216,12 @@ class MainMenu {
         }
     }
 
+    /**
+     * Visszater a megadott nevu elemmel a megadott mappabol a kijelzett fa mappa strukturabol.
+     * @param treeItemValue elem neve
+     * @param treeFolder mappa neve
+     * @return elem
+     */
     private TreeItem<String> getTreeItem(String treeItemValue, TreeItem<String> treeFolder) {
         for(TreeItem<String> ti : treeFolder.getChildren()) {
             if(ti.getValue().equals(treeItemValue))
@@ -185,6 +230,10 @@ class MainMenu {
         return null;
     }
 
+    /**
+     * Visszater az aktualisan kijelzett szett kifejezes-definicio parjaival.
+     * @return kifejezes-definicio parok
+     */
     ArrayList<TermAndDefinition> getDisplayedStudySetData() {
         studySetBox.getChildren().remove(createNewElement);
 
@@ -199,6 +248,10 @@ class MainMenu {
         return tads;
     }
 
+    /**
+     * Getter a kijelzett fara.
+     * @return kijelzett fa
+     */
     TreeView<String> getFolderTree() {
         return tree;
     }

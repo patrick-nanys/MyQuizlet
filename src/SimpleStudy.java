@@ -16,6 +16,10 @@ abstract class SimpleStudy extends Study {
     private Label familiarNum;
     private Label masteredNum;
 
+    /**
+     * Beallitja a megadott nezetet az osben es beallitja a felso menu savot.
+     * @param view nezet
+     */
     SimpleStudy(View view) {
         super(view);
         familiars = new ArrayList<>();
@@ -23,10 +27,28 @@ abstract class SimpleStudy extends Study {
         setupTop();
     }
 
+    /**
+     * Getter a maradek listara.
+     * @return maradek lista
+     */
     ArrayList<TermAndDefinition> getRemaining() { return remaining; }
+
+    /**
+     * Getter az ismeros listara.
+     * @return ismeros lista
+     */
     ArrayList<TermAndDefinition> getFamiliars() { return familiars; }
+
+    /**
+     * Getter az aktualis kifejezes-definicio parra.
+     * @return kifejezes-definicio par
+     */
     TermAndDefinition getCurrent() { return current; }
 
+    /**
+     * Betolti a megadott szettet a listakba es betolt egy kezdo part
+     * @param studySet szett
+     */
     void loadStudySet(StudySet studySet) {
         remaining = studySet.getTermsAndDefinitions();
         Collections.shuffle(remaining);
@@ -36,10 +58,17 @@ abstract class SimpleStudy extends Study {
         setNext();
     }
 
+    /**
+     * Beallitja a kovetkezo kifejezes-definicio part
+     */
     void setNext() {
         current = getNewTermAndDefinition();
     }
 
+    /**
+     * Visszater egy algoritmus alapjan vagy a maradek listabol vagy az ismeros listabol egy parral
+     * @return kifejezes-definicio par
+     */
     private TermAndDefinition getNewTermAndDefinition() {
         if(Integer.parseInt(familiarNum.getText()) < 10 && remaining.size() != 0) {
             return remaining.get(0);
@@ -49,6 +78,9 @@ abstract class SimpleStudy extends Study {
         return new TermAndDefinition("", "");
     }
 
+    /**
+     * Athelyezi az aktualis part a megfelelo listaba, beallitja a szamlalokat, ezutan beallitja a kovetkezo part.
+     */
     void gotIt() {
         if(remaining.size() != 0 && current == remaining.get(0)) {
             familiars.add(current);
@@ -68,6 +100,9 @@ abstract class SimpleStudy extends Study {
         setNext();
     }
 
+    /**
+     * Athelyezi az aktualis part a megfelelo listaban a lista vegere, ezutan beallitja a kovetkezo part.
+     */
     void didNotGetIt() {
         if(remaining.size() != 0 && current == remaining.get(0)) {
             remaining.remove(0);
@@ -79,6 +114,9 @@ abstract class SimpleStudy extends Study {
         setNext();
     }
 
+    /**
+     * Beallitja a felso menusavot.
+     */
     private void setupTop() {
         HBox topLabels = new HBox();
         topLabels.setId("main-hbox");

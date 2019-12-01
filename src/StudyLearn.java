@@ -19,14 +19,19 @@ class StudyLearn extends SimpleStudy {
     private Label definitionLabel;
     private TextField answer;
 
+    /**
+     * Beallitja azt ost a megadott nezettel egy beallitja az ablak kozepso reszet
+     * @param view nezet
+     */
     StudyLearn(View view) {
         super(view);
 
         setupCenter();
-
-        //scene.getStylesheets().add("StudyFlashcardStyles.css");
     }
 
+    /**
+     * Bealltja a kovetkezo kifejezes-definicio part
+     */
     @Override
     void setNext() {
         super.setNext();
@@ -40,6 +45,9 @@ class StudyLearn extends SimpleStudy {
         }
     }
 
+    /**
+     * A feleletvalasztos resznel beallitja a definiciokat osszekeverve.
+     */
     private void setDefinitions() {
         ArrayList<TermAndDefinition> all = new ArrayList<>();
         all.addAll(getRemaining());
@@ -63,11 +71,17 @@ class StudyLearn extends SimpleStudy {
         }
     }
 
+    /**
+     * Beallitja az ablak kozepso reszen elhelyezkedo feladat reszeket
+     */
     private void setupCenter() {
         setupRadioTest();
         setupWritingTest();
     }
 
+    /**
+     * Beallitja a feleletvalasztos feladat kinezetet.
+     */
     private void setupRadioTest() {
         radioMain = new VBox();
         radioMain.setAlignment(Pos.CENTER);
@@ -110,6 +124,9 @@ class StudyLearn extends SimpleStudy {
         radioMain.getChildren().add(choicesAndValidate);
     }
 
+    /**
+     * Beallitja az irasos feladat kinezetet.
+     */
     private void setupWritingTest() {
         writingMain = new VBox();
         writingMain.setAlignment(Pos.CENTER);
@@ -129,9 +146,19 @@ class StudyLearn extends SimpleStudy {
         writingMain.getChildren().addAll(definitionLabel, answer, validate);
     }
 
+    /**
+     * A feleletvalaszot feladatot allitja be az ablak kozepso reszere.
+     */
     private void displayRadioTest() { setLayoutCenter(radioMain); }
+
+    /**
+     * Az irasos feladatot allitja be az ablak kozepso reszere.
+     */
     private void displayWritingTest() { setLayoutCenter(writingMain); }
 
+    /**
+     * Ellenorzi a feleletvalasztos feladat megoldasat.
+     */
     private void validateRadioAnswer() {
         if(radioButtons[correctIndex].isSelected()) {
             gotIt();
@@ -144,6 +171,9 @@ class StudyLearn extends SimpleStudy {
         }
     }
 
+    /**
+     * Ellenorzi az irasos feladat megoldasat.
+     */
     private void validateWritingAnswer() {
         if(!getCurrent().definition.equals("")) {
             if(answer.getText().equals(getCurrent().term)) {

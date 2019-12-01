@@ -4,6 +4,10 @@ import javafx.scene.layout.VBox;
 
 public class StudySetBox extends VBox implements EventHandler<ActionEvent> {
 
+    /**
+     * Torli azt a szett elemet amibol hivas tortent.
+     * @param actionEvent gomb esemény
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         SetElement e = ((ElementDeleteButton)actionEvent.getSource()).getButtonHolder();

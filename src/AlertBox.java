@@ -6,7 +6,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AlertBox {
+class AlertBox {
+
+    /**
+     * Megjelenit egy felugro ablakot a megadott szoveggel.
+     * @param title megjelenitett szoveg
+     */
     static void display(String title) {
 
         Stage window = new Stage();
