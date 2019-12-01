@@ -1,8 +1,10 @@
+package main.java.view;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.VBox;
 
-public class StudySetBox extends VBox implements EventHandler<ActionEvent> {
+class StudySetBox extends VBox implements EventHandler<ActionEvent> {
 
     /**
      * Torli azt a szett elemet amibol hivas tortent.

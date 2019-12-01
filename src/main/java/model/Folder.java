@@ -1,7 +1,9 @@
+package main.java.model;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-class Folder implements Serializable {
+public class Folder implements Serializable {
     private ArrayList<StudySet> studySets;
 
     /**
@@ -15,7 +17,7 @@ class Folder implements Serializable {
      * Hozzaad egy szettet a mappahoz.
      * @param nameOfSet szett neve
      */
-    void addStudySet(String nameOfSet) {
+    public void addStudySet(String nameOfSet) {
         StudySet studySet = new StudySet(nameOfSet);
         studySets.add(studySet);
     }
@@ -25,7 +27,7 @@ class Folder implements Serializable {
      * @param setName szett neve
      * @return szett, ha ne letezik akkor null
      */
-    StudySet getStudySet(String setName) {
+    public StudySet getStudySet(String setName) {
         for(StudySet ss : studySets) {
             if(ss.getName().equals(setName)) {
                 return ss;
@@ -38,7 +40,7 @@ class Folder implements Serializable {
      * Eltavolitja a megadott nevu szettet a mappabol.
      * @param setName szett neve
      */
-    void removeStudySet(String setName) {
+    public void removeStudySet(String setName) {
         for(StudySet ss : studySets) {
             if(ss.getName().equals(setName)) {
                 studySets.remove(ss);
@@ -52,7 +54,7 @@ class Folder implements Serializable {
      * @param setName szett neve
      * @return igaz, ha benne van, kulonben hamis
      */
-    boolean containsStudySet(String setName) {
+    public boolean containsStudySet(String setName) {
         for(StudySet ss : studySets) {
             if(ss.getName().equals(setName))
                 return true;
@@ -64,7 +66,7 @@ class Folder implements Serializable {
      * Visszater egy listaval a mappaban levo szettek neveirol
      * @return lista
      */
-    ArrayList<String> getSetNames() {
+    public ArrayList<String> getSetNames() {
         ArrayList<String> setNames = new ArrayList<>();
         for(StudySet ss : studySets) {
             setNames.add(ss.getName());
@@ -77,7 +79,7 @@ class Folder implements Serializable {
      * @param setName szett neve
      * @param studySet szett
      */
-    void setStudySet(String setName, StudySet studySet) {
+    public void setStudySet(String setName, StudySet studySet) {
         int i = 0;
         for(StudySet ss : studySets) {
             if(ss.getName().equals(setName)) {

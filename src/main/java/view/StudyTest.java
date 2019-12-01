@@ -1,9 +1,14 @@
+package main.java.view;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import main.java.model.StudySet;
+import main.java.model.TermAndDefinition;
 
 import java.util.ArrayList;
 import java.util.Collections;

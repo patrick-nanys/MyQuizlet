@@ -1,2 +1,3 @@
 Create JUnit tests
 Cleanup Controller.java
+Cleanup Model.java

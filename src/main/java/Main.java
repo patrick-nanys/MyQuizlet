@@ -1,5 +1,10 @@
+package main.java;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+import main.java.controller.Controller;
+import main.java.model.Model;
+import main.java.view.View;
 
 public class Main extends Application {
 
@@ -12,10 +17,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         View view = new View(primaryStage);
 
-        Model model = new Model(view);
+        Model model = new Model();
+        model.linkView(view);
         model.loadSavedSets();
 
-        Controller controller = new Controller(model, view);
+        Controller controller = new Controller(model);
+        controller.linkView(view);
 
         view.setupMainMenu(controller, model.getHierarchyList());
         view.setupStudySections();

@@ -1,4 +1,7 @@
+package main.java.view;
+
 import javafx.scene.control.Button;
+import main.java.view.SetElement;
 
 class ElementDeleteButton extends Button {
     private SetElement setElement;

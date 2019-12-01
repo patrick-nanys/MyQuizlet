@@ -1,3 +1,5 @@
+package main.java.controller;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -5,6 +7,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import main.java.model.Model;
+import main.java.view.View;
 
 public class Controller implements EventHandler<ActionEvent>, ChangeListener<TreeItem<String>> {
     private Model model;
@@ -13,12 +17,18 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     private TreeItem<String> displayedSet = null;
 
     /**
-     * Beallitja a modell es a nezet referenciakat a kesobbi kommunikaciohoz az osztalyok kozoott.
+     * Beallitja a modell referenciat a kesobbi kommunikaciohoz.
      * @param model modell
+     */
+    public Controller(Model model) {
+        this.model = model;
+    }
+
+    /**
+     * Beallitja a nezet referenciat.
      * @param view nezet
      */
-    Controller(Model model, View view) {
-        this.model = model;
+    public void linkView(View view) {
         this.view = view;
     }
 
@@ -31,11 +41,11 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
         String name = ((Button) actionEvent.getSource()).getText();
         switch (name) {
             case "Create folder":
-                PopUpBox.display("Create folder");
+                view.displayPopUpBox("Create folder");
                 createFolder();
                 break;
             case "Create set":
-                PopUpBox.display("Create set");
+                view.displayPopUpBox("Create set");
                 createStudySet(view.getFolderTree());
                 break;
             case "Delete":
@@ -67,7 +77,7 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     /**
      * Az aktualisan kijelzett szettet elmenti a modellben.
      */
-    void saveDisplayedSet() {
+    public void saveDisplayedSet() {
         if (displayedSet != null) {
             String setName = displayedSet.getValue();
             String folderName = displayedSet.getParent().getValue();
@@ -79,16 +89,16 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
      * Letrehoz egy uj mappat a modellben, ami aztan frissiti a kijelzett fat is.
      */
     private void createFolder() {
-        if(PopUpBox.didPressOk()) {
-            String folderName = PopUpBox.getEnteredText();
+        if(view.didPressOkPopUpBox()) {
+            String folderName = view.getEnteredTextPopUpBox();
             if (!folderName.equals("")) {
                 if (model.nameDoesNotExist(folderName, "root")) {
                     model.createFolder(folderName);
                 } else {
-                    AlertBox.display("Folder already exists!");
+                    view.displayAlertBox("Folder already exists!");
                 }
             } else {
-                AlertBox.display("Give a valid folder name!");
+                view.displayAlertBox("Give a valid folder name!");
             }
         }
     }
@@ -98,9 +108,9 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
      * @param tree kijelzett fa struktura a mappakrol es szettekrol
      */
     private void createStudySet(TreeView<String> tree) {
-        if(PopUpBox.didPressOk()) {
+        if(view.didPressOkPopUpBox()) {
             TreeItem<String> selectedItem = tree.getSelectionModel().getSelectedItem();
-            String setName = PopUpBox.getEnteredText();
+            String setName = view.getEnteredTextPopUpBox();
             if (!setName.equals("")) {
                 if (selectedItem != null) {
                     if (model.nameDoesNotExist(setName, selectedItem.getParent().getValue())) {
@@ -109,13 +119,13 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
                         else folderName = selectedItem.getParent().getValue();
                         model.createStudySetInFolder(setName, folderName);
                     } else {
-                        AlertBox.display("Set already exists in folder!");
+                        view.displayAlertBox("Set already exists in folder!");
                     }
                 } else {
-                    AlertBox.display("Select to which folder you want to add the new set!");
+                    view.displayAlertBox("Select to which folder you want to add the new set!");
                 }
             } else {
-                AlertBox.display("Give a valid set name!");
+                view.displayAlertBox("Give a valid set name!");
             }
         }
     }
@@ -180,7 +190,7 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
 */
 
     /**
-     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a StudyFlashcard reszt.
+     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a main.java.view.StudyFlashcard reszt.
      * @param tree kijelzett fa struktura a mappakrol es szettekrol
      */
     private void studyFlashcards(TreeView<String> tree) {
@@ -188,12 +198,12 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
             saveDisplayedSet();
             view.showStudyFlashcard(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
         } else {
-            AlertBox.display("Select a set before trying to study!");
+            view.displayAlertBox("Select a set before trying to study!");
         }
     }
 
     /**
-     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a StudyLearn reszt.
+     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a main.java.view.StudyLearn reszt.
      * @param tree kijelzett fa struktura a mappakrol es szettekrol
      */
     private void studyLearn(TreeView<String> tree) {
@@ -202,15 +212,15 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
             if(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()).getTermsAndDefinitions().size() >= 4) {
                 view.showStudyLearn(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
             } else {
-                AlertBox.display("You need to have at least four terms and definitions to study this way!");
+                view.displayAlertBox("You need to have at least four terms and definitions to study this way!");
             }
         } else {
-            AlertBox.display("Select a set before trying to study!");
+            view.displayAlertBox("Select a set before trying to study!");
         }
     }
 
     /**
-     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a StudyTest reszt.
+     * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a main.java.view.StudyTest reszt.
      * @param tree kijelzett fa struktura a mappakrol es szettekrol
      */
     private void studyTest(TreeView<String> tree) {
@@ -219,10 +229,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
             if(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()).getTermsAndDefinitions().size() >= 15) {
                 view.showStudyTest(model.getStudySetFromFolder(displayedSet.getValue(), displayedSet.getParent().getValue()));
             } else {
-                AlertBox.display("You need to have at least fifteen terms and definitions to study this way!");
+                view.displayAlertBox("You need to have at least fifteen terms and definitions to study this way!");
             }
         } else {
-            AlertBox.display("Select a set before trying to study!");
+            view.displayAlertBox("Select a set before trying to study!");
         }
     }
 }

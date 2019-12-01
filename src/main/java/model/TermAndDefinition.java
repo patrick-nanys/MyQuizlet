@@ -1,15 +1,17 @@
+package main.java.model;
+
 import java.io.Serializable;
 
-class TermAndDefinition implements Serializable {
-    String term;
-    String definition;
+public class TermAndDefinition implements Serializable {
+    public String term;
+    public String definition;
 
     /**
      * Beallitja az osztalyban tarolt kifejezest es definiciot.
      * @param term kifejezes
      * @param definition definicio
      */
-    TermAndDefinition(String term, String definition) {
+    public TermAndDefinition(String term, String definition) {
         this.term = term;
         this.definition = definition;
     }

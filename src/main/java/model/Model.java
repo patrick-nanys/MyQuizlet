@@ -1,26 +1,35 @@
+package main.java.model;
+
 import javafx.util.Pair;
+import main.java.view.View;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-class Model {
+public class Model {
     private TreeMap<String, Folder> folders;
     private transient View view;
 
     /**
-     * Beallitja az osztaly valtozoit es a nezet referenciat a kommunikaciohoz.
+     * Beallitja az osztaly valtozoit.
+     */
+    public Model() {
+        folders = new TreeMap<>();
+    }
+
+    /**
+     * Beallitja a nezet referenciat.
      * @param view nezet
      */
-    Model(View view) {
-        folders = new TreeMap<>();
+    public void linkView(View view) {
         this.view = view;
     }
 
     /**
      * Fajlba menti a szetteket es a mappakat.
      */
-    void saveSets() {
+    public void saveSets() {
         try {
             FileOutputStream f = new FileOutputStream("data");
             ObjectOutputStream out = new ObjectOutputStream(f);
@@ -34,7 +43,7 @@ class Model {
     /**
      * Kiolvassa fajlbol az elmentett szettekeet es mappakat.
      */
-    void loadSavedSets() {
+    public void loadSavedSets() {
         File file = new File("data");
         if(file.exists()) {
             try {
@@ -52,20 +61,13 @@ class Model {
      * Letrehoz egy magadott nevu mappat a strukturaban.
      * @param folderName mappa neve
      */
-    void createFolder(String folderName) {
-        if (nameDoesNotExist(folderName, "root")) {
-            //File file = new File(FOLDER_DIR + File.separator + folderName);
-            //if (!file.exists())
-                //file.mkdir();
-            Folder folder = new Folder();
-            folders.put(folderName, folder);
-            try {
-                view.addItemToMainTree(folderName, "root");
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-        } else {
-            AlertBox.display("Folder already exists!");
+    public void createFolder(String folderName) {
+        Folder folder = new Folder();
+        folders.put(folderName, folder);
+        try {
+            view.addItemToMainTree(folderName, "root");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
@@ -74,13 +76,14 @@ class Model {
      * @param setName szett neve
      * @param folderName mappa neve
      */
-    void createStudySetInFolder(String setName, String folderName) {
-        folders.get(folderName).addStudySet(setName);
-        try {
-
-            view.addItemToMainTree(setName, folderName);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+    public void createStudySetInFolder(String setName, String folderName) {
+        if(folders.containsKey(folderName)) {
+            folders.get(folderName).addStudySet(setName);
+            try {
+                view.addItemToMainTree(setName, folderName);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,7 +91,7 @@ class Model {
      * Letrehoz egy hierarchia listat a mappakbol es szettekbol.
      * @return hiererhia lista
      */
-    ArrayList<Pair<String, String>> getHierarchyList() {
+    public ArrayList<Pair<String, String>> getHierarchyList() {
         ArrayList<Pair<String, String>> hierarchy = new ArrayList<>();
         for(String folderName : folders.keySet()) {
             for(String setName : folders.get(folderName).getSetNames())
@@ -105,7 +108,7 @@ class Model {
      * @param folderName mappa neve
      * @return szett
      */
-    StudySet getStudySetFromFolder(String setName, String folderName) {
+    public StudySet getStudySetFromFolder(String setName, String folderName) {
         return folders.get(folderName).getStudySet(setName);
     }
 
@@ -113,7 +116,7 @@ class Model {
      * Eltavolitja a megadott nevu mappat es annak az osszes elemet a modelbol.
      * @param folderName mappa neve
      */
-    void removeFolder(String folderName) {
+    public void removeFolder(String folderName) {
         folders.remove(folderName);
         try {
             view.removeItemFromMainTree(folderName, "root");
@@ -127,12 +130,14 @@ class Model {
      * @param setName szett neve
      * @param folderName mappa neve
      */
-    void removeStudySet(String setName, String folderName) {
-        folders.get(folderName).removeStudySet(setName);
-        try {
-            view.removeItemFromMainTree(setName, folderName);
-        } catch(NullPointerException e) {
-            e.printStackTrace();
+    public void removeStudySet(String setName, String folderName) {
+        if(folders.containsKey(folderName)) {
+            folders.get(folderName).removeStudySet(setName);
+            try {
+                view.removeItemFromMainTree(setName, folderName);
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -142,11 +147,11 @@ class Model {
      * @param folderName mappa neve
      * @return letezik-e
      */
-    boolean nameDoesNotExist(String name, String folderName) {
+    public boolean nameDoesNotExist(String name, String folderName) {
         if(folderName.equals("root")) {
             return !folders.containsKey(name);
         } else {
-            return !folders.get(folderName).containsStudySet(name);
+            return !folders.containsKey(folderName) || !folders.get(folderName).containsStudySet(name);
         }
     }
 
@@ -155,7 +160,7 @@ class Model {
      * @param setName szett neve
      * @param folderName mappa neve
      */
-    void saveDisplayedStudySet(String setName, String folderName) {
+    public void saveDisplayedStudySet(String setName, String folderName) {
         ArrayList<TermAndDefinition> tads = view.getDisplayedStudySetData();
         StudySet studySet = new StudySet(setName);
         for(TermAndDefinition tad : tads)
@@ -168,7 +173,7 @@ class Model {
      * @param setName szett neve
      * @param folderName mappa neve
      */
-    void loadStudySet(String setName, String folderName) {
+    public void loadStudySet(String setName, String folderName) {
         StudySet studySet = folders.get(folderName).getStudySet(setName);
         view.loadStudySet(studySet);
     }

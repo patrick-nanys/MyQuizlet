@@ -1,10 +1,9 @@
+package main.java.model;
+
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
-class StudySet implements Serializable {
+public class StudySet implements Serializable {
     private String name;
     private ArrayList<TermAndDefinition> termsAndDefinitions = new ArrayList<>();
 
@@ -12,7 +11,7 @@ class StudySet implements Serializable {
      * Letrehozza és beallitja a szett nevet.
      * @param name szett neve
      */
-    StudySet(String name) {
+    public StudySet(String name) {
         this.name = name;
     }
 
@@ -20,7 +19,7 @@ class StudySet implements Serializable {
      * Hozzaad egy kifejezes-definicio part a szetthez.
      * @param tad kifejezes-definicio par
      */
-    void add(TermAndDefinition tad) {
+    public void add(TermAndDefinition tad) {
         termsAndDefinitions.add(tad);
     }
 
@@ -28,7 +27,7 @@ class StudySet implements Serializable {
      * Gette a szett nevére.
      * @return szett neve
      */
-    String getName() {
+    public String getName() {
         return name;
     }
 
@@ -36,7 +35,7 @@ class StudySet implements Serializable {
      * Visszater egy listaval amiben benne van a szettben levo osszes kifejezes-definicio par
      * @return lista a kifejezes-definicio parokkal
      */
-    ArrayList<TermAndDefinition> getTermsAndDefinitions() {
+    public ArrayList<TermAndDefinition> getTermsAndDefinitions() {
         return termsAndDefinitions;
     }
 }

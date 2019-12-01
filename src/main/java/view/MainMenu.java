@@ -1,3 +1,5 @@
+package main.java.view;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -7,6 +9,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+import main.java.controller.Controller;
+import main.java.model.StudySet;
+import main.java.model.TermAndDefinition;
 
 import java.util.*;
 

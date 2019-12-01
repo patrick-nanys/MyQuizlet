@@ -1,10 +1,15 @@
+package main.java.view;
+
 import javafx.scene.control.TreeView;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import main.java.controller.Controller;
+import main.java.model.StudySet;
+import main.java.model.TermAndDefinition;
 
 import java.util.ArrayList;
 
-class View {
+public class View {
 
     private Stage primaryStage;
     private MainMenu mainMenu;
@@ -16,7 +21,7 @@ class View {
      * Beallitja a nezetben a szintert es beallitja az ablak cimet.
      * @param primaryStage szinter.
      */
-    View(Stage primaryStage) {
+    public View(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MyQuizlet");
     }
@@ -24,9 +29,37 @@ class View {
     /**
      * Kijelzi a nezetet.
      */
-    void showView() {
+    public void showView() {
         primaryStage.show();
     }
+
+    /**
+     * Megjelenit egy felugro ablakot a megadott szoveggel.
+     * @param text megjelenitett szoveg
+     */
+    public void displayAlertBox(String text) {
+        AlertBox.display(text);
+    }
+
+    /**
+     * Megjelenit egy felugro ablakot a megadott szoveggel és egy bemeneti mezovel.
+     * @param text megjelenitett szoveg
+     */
+    public void displayPopUpBox(String text) {
+        PopUpBox.display(text);
+    }
+
+    /**
+     * Visszater a megjelenitett ablakban beirt szoveggel.
+     * @return beirt szoveg
+     */
+    public String getEnteredTextPopUpBox() { return PopUpBox.getEnteredText(); }
+
+    /**
+     * Visszater, hogy meg lett-e nyomva a felugro ablakban az ok gomb.
+     * @return meg lett-e nyomva
+     */
+    public boolean didPressOkPopUpBox() { return PopUpBox.didPressOk(); }
 
     /**
      * Beallitja a fomenut a megadott hierarchia lista alapjan es megadja a fomenunek a kontrollert a gomb nyomasok
@@ -34,7 +67,7 @@ class View {
      * @param controller kontroller
      * @param hierarchyList hierarchia lista
      */
-    void setupMainMenu(Controller controller, ArrayList<Pair<String, String>> hierarchyList) {
+    public void setupMainMenu(Controller controller, ArrayList<Pair<String, String>> hierarchyList) {
         mainMenu = new MainMenu(controller);
         mainMenu.loadFolderTree(hierarchyList, controller);
         mainMenu.setupLeftMenu();
@@ -43,7 +76,7 @@ class View {
     /**
      * Beallitja a szinterre a fomennut.
      */
-    void showMainMenu() {
+    public void showMainMenu() {
         primaryStage.setScene(mainMenu.getScene());
     }
 
@@ -53,7 +86,7 @@ class View {
      * @param folderName mappa neve
      * @throws NullPointerException ha egy szettet probalunk letrehozni ugy, hogy egyik elem sincsen kivalasztva
      */
-    void addItemToMainTree(String treeItemValue, String folderName) throws NullPointerException {
+    public void addItemToMainTree(String treeItemValue, String folderName) throws NullPointerException {
         mainMenu.addItemToTree(treeItemValue, folderName);
     }
 
@@ -63,7 +96,7 @@ class View {
      * @param folderName mappa neve
      * @throws NullPointerException ha egy szettet probalunk eltavolitani ugy, hogy egyik elem sincsen kivalasztva
      */
-    void removeItemFromMainTree(String treeItemValue, String folderName) throws NullPointerException {
+    public void removeItemFromMainTree(String treeItemValue, String folderName) throws NullPointerException {
         mainMenu.removeItemFromTree(treeItemValue, folderName);
     }
 
@@ -71,7 +104,7 @@ class View {
      * Visszater a fomenuben aktualisan megjelenitett szettnek a kifeljezes-definicio listajaval.
      * @return kifejezes-definicio lista
      */
-    ArrayList<TermAndDefinition> getDisplayedStudySetData() {
+    public ArrayList<TermAndDefinition> getDisplayedStudySetData() {
         return mainMenu.getDisplayedStudySetData();
     }
 
@@ -79,7 +112,7 @@ class View {
      * Betolti a fomenube a megadott szettet.
      * @param studySet szett
      */
-    void loadStudySet(StudySet studySet) {
+    public void loadStudySet(StudySet studySet) {
         mainMenu.loadStudySet(studySet);
     }
 
@@ -87,42 +120,42 @@ class View {
      * Visszater a fomenuben megjelenitett fa mappa strukturaval.
      * @return fa mappa struktura
      */
-    TreeView<String> getFolderTree() {
+    public TreeView<String> getFolderTree() {
         return mainMenu.getFolderTree();
     }
 
     /**
      * Letrehozza az egyes tanulo ablakokat.
      */
-    void setupStudySections() {
+    public void setupStudySections() {
         studyFlashcard = new StudyFlashcard(this);
         studyLearn = new StudyLearn(this);
         studyTest = new StudyTest(this);
     }
 
     /**
-     * Az ablakban a megadott szettel a StudyFlashcard reszt jeleniti meg.
+     * Az ablakban a megadott szettel a main.java.view.StudyFlashcard reszt jeleniti meg.
      * @param studySet szett
      */
-    void showStudyFlashcard(StudySet studySet) {
+    public void showStudyFlashcard(StudySet studySet) {
         studyFlashcard.loadStudySet(studySet);
         primaryStage.setScene(studyFlashcard.getScene());
     }
 
     /**
-     * Az ablakban a megadott szettel a StudyLearn reszt jeleniti meg.
+     * Az ablakban a megadott szettel a main.java.view.StudyLearn reszt jeleniti meg.
      * @param studySet szett
      */
-    void showStudyLearn(StudySet studySet) {
+    public void showStudyLearn(StudySet studySet) {
         studyLearn.loadStudySet(studySet);
         primaryStage.setScene(studyLearn.getScene());
     }
 
     /**
-     * Az ablakban a megadott szettel a StudyTest reszt jeleniti meg.
+     * Az ablakban a megadott szettel a main.java.view.StudyTest reszt jeleniti meg.
      * @param studySet szett
      */
-    void showStudyTest(StudySet studySet) {
+    public void showStudyTest(StudySet studySet) {
         studyTest.loadStudySet(studySet);
         primaryStage.setScene(studyTest.getScene());
     }
