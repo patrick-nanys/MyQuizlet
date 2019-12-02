@@ -113,10 +113,10 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
             String setName = view.getEnteredTextPopUpBox();
             if (!setName.equals("")) {
                 if (selectedItem != null) {
-                    if (model.nameDoesNotExist(setName, selectedItem.getParent().getValue())) {
-                        String folderName;
-                        if (selectedItem.getParent() == tree.getRoot()) folderName = selectedItem.getValue();
-                        else folderName = selectedItem.getParent().getValue();
+                    String folderName;
+                    if (selectedItem.getParent() == tree.getRoot()) folderName = selectedItem.getValue();
+                    else folderName = selectedItem.getParent().getValue();
+                    if (model.nameDoesNotExist(setName, folderName)) {
                         model.createStudySetInFolder(setName, folderName);
                     } else {
                         view.displayAlertBox("Set already exists in folder!");

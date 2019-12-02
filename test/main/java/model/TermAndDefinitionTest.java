@@ -1,7 +1,7 @@
 package main.java.model;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.testng.Assert;
 
 import static org.junit.jupiter.api.Assertions.*;
 

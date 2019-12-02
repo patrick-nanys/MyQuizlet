@@ -248,12 +248,11 @@ class StudyTest extends Study {
 
             // validate second task
             int indexOfDefinition;
-            if(characterFields[i].getText().equals(""))
-                indexOfDefinition = 0;
-            else
+            if(!characterFields[i].getText().equals("")) {
                 indexOfDefinition = characterFields[i].getText().charAt(0) - 'A';
-            if(secondTaskTermAndDefinitions.get(i).term.equals(secondTaskShuffled.get(indexOfDefinition).term))
-                sumOfPoints++;
+                if (secondTaskTermAndDefinitions.get(i).term.equals(secondTaskShuffled.get(indexOfDefinition).term))
+                    sumOfPoints++;
+            }
 
             // validate third task
             if(thirdTaskTermAndDefinitions.get(i).term.equals(thirdTaskShuffled.get(i).term)) {
