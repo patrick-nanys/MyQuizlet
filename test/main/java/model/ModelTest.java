@@ -1,9 +1,6 @@
 package main.java.model;
 
-import javafx.stage.Stage;
-import main.java.view.View;
 import org.junit.Assert;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -11,17 +8,26 @@ class ModelTest {
 
     Model model;
 
+    /**
+     * Felallitja a teszteloi kornyezetet.
+     */
     @BeforeEach
     void setUp() {
         model = new Model();
     }
 
+    /**
+     * Teszteli a nameDoesNotExist() fuggveny megfelelo mukodeset.
+     */
     @Test
     public void testNameDoesNotExist() {
         Assert.assertTrue("nameDoesNotExist does not work",
                 model.nameDoesNotExist("random name", "random folder name"));
     }
 
+    /**
+     * Teszteli a createFolder() fuggveny megfelelo mukodeset.
+     */
     @Test
     public void testCreateFolder() {
         model.createFolder("second folder");
@@ -29,6 +35,9 @@ class ModelTest {
                 model.nameDoesNotExist("second folder", "root"));
     }
 
+    /**
+     * Teszteli a createStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     public void testCreateStudySet() {
         model.createFolder("third folder");
@@ -37,6 +46,9 @@ class ModelTest {
                 model.nameDoesNotExist("third set", "third folder"));
     }
 
+    /**
+     * Teszteli a removeStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     public void testRemoveStudySet() {
         model.createFolder("fourth folder");
@@ -46,6 +58,9 @@ class ModelTest {
                 model.nameDoesNotExist("fourth set", "fourth folder"));
     }
 
+    /**
+     * Teszteli a removeFolder() fuggveny megfelelo mukodeset.
+     */
     @Test
     public void testRemoveFolder() {
         model.createFolder("fifth folder");

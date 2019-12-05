@@ -6,17 +6,21 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class StudySetTest {
 
     StudySet studySet;
 
+    /**
+     * Felallitja a teszteloi kornyezetet.
+     */
     @BeforeEach
     void setUp() {
         studySet = new StudySet("name");
     }
 
+    /**
+     * Teszteli az add() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testAdd() {
         studySet.add(new TermAndDefinition("term", "definition"));
@@ -25,11 +29,17 @@ class StudySetTest {
         Assert.assertEquals(studySet.getTermsAndDefinitions().get(0).definition, "definition");
     }
 
+    /**
+     * Teszteli a getName() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testGetName() {
         Assert.assertEquals("name", studySet.getName());
     }
 
+    /**
+     * Teszteli a getTermsAndDefinitions() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testGetTermsAndDefinitions() {
         ArrayList<TermAndDefinition> tads = new ArrayList<>();

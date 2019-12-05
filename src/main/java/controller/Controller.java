@@ -174,20 +174,6 @@ public class Controller implements EventHandler<ActionEvent>, ChangeListener<Tre
     private boolean isFolder(TreeItem<String> item, TreeView<String> tree) {
         return item.getParent() == tree.getRoot();
     }
-/*
-    private void deleteFile(String path) throws FileSystemException {
-        File file = new File(FOLDER_DIR + File.separator + path);
-        if(file.exists()) {
-            if(!file.delete()) {
-                File[] files = file.listFiles();
-                for(File f : files) {
-                    if(!f.delete())
-                        throw new FileSystemException(file.getAbsolutePath());
-                }
-            }
-        }
-    }
-*/
 
     /**
      * Elmenti az aktualisan kijelzett szettet, ezutan megjeleniti a main.java.view.StudyFlashcard reszt.

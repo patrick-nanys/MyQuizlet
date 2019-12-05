@@ -3,10 +3,11 @@ package main.java.model;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class TermAndDefinitionTest {
 
+    /**
+     * Teszteli a konstruktor megfelelo mukodeset.
+     */
     @Test
     void testConstructor() {
         TermAndDefinition tad = new TermAndDefinition("term", "definition");

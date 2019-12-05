@@ -6,22 +6,29 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class FolderTest {
 
     Folder folder;
 
+    /**
+     * Felallitja a teszteloi kornyezetet.
+     */
     @BeforeEach
     void setUp() {
         folder = new Folder();
     }
 
+    /**
+     * Teszteli a getStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     void getStudySet() {
         Assert.assertNull(folder.getStudySet("random set"));
     }
 
+    /**
+     * Teszteli az addStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testAddStudySet() {
         folder.addStudySet("study set");
@@ -29,6 +36,9 @@ class FolderTest {
                 folder.getStudySet("study set").getName());
     }
 
+    /**
+     * Teszteli a containsStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testContainsStudySet() {
         Assert.assertFalse(folder.containsStudySet("never existed"));
@@ -36,6 +46,9 @@ class FolderTest {
         Assert.assertTrue(folder.containsStudySet("exists"));
     }
 
+    /**
+     * Teszteli a removeStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     void removeStudySet() {
         folder.addStudySet("some name");
@@ -43,6 +56,9 @@ class FolderTest {
         Assert.assertFalse(folder.containsStudySet("some name"));
     }
 
+    /**
+     * Teszteli a getSetNames() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testGetSetNames() {
         ArrayList<String> setNames = new ArrayList<>();
@@ -55,6 +71,9 @@ class FolderTest {
         Assert.assertEquals(setNames, folder.getSetNames());
     }
 
+    /**
+     * Teszteli a setStudySet() fuggveny megfelelo mukodeset.
+     */
     @Test
     void testSetStudySet() {
         folder.addStudySet("original set");
